@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+  {% for post in post_list %}
+    <h1>Название: {{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <p>Написал: {{ post.author }}</p>
+    <p>Категория: {{ post.category }}</p>
+    <p>Создан: {{ post.created_at }}</p>
+    <p>Обновлён: {{ post.updated_at }}</p>
+    {% empty %}
+    <h3>Публикации отсутсвуют.</h3>
+  {% endfor %}
+{% endblock content %}
