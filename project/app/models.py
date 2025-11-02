@@ -13,6 +13,12 @@ class Category(models.Model):
             self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse("posts/", kwargs={"pk": self.pk, "slug": self.slug})
+
+    def __str__(self):
+        return str(self.name)
+
 
 class AuthorProfile(models.Model):
     user = models.OneToOneField(
@@ -20,6 +26,9 @@ class AuthorProfile(models.Model):
         related_name="user",
         on_delete=models.CASCADE,
     )
+
+    def __str__(self):
+        return str(self.user)
 
 
 class BlogPost(models.Model):
@@ -35,7 +44,7 @@ class BlogPost(models.Model):
         related_name="category",
         on_delete=models.CASCADE,
     )
-    published = models.BooleanField(default=False)
+    published = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     slug = models.SlugField(unique=True)
