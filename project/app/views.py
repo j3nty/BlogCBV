@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from datetime import datetime
+from .models import BlogPost
 
 
 class HomePageView(TemplateView):
@@ -20,3 +21,10 @@ class HomePageView(TemplateView):
 
         context["current_time"] = greeting
         return context
+
+
+class PostListView(ListView):
+    model = BlogPost
+    context_object_name = "post_list"
+    template_name = "post_list.html"
+    ordering = ["-created_at"]
