@@ -38,7 +38,7 @@ class BlogPost(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
-        super().save(*args, **kwargss)
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("blog", kwargs={"pk": self.pk, "slug": self.slug})
