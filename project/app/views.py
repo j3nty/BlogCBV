@@ -27,7 +27,7 @@ class PostListView(ListView):
     model = BlogPost
     context_object_name = "post_list"
     template_name = "post_list.html"
-    paginate_by = 10
+    paginate_by = 2
 
     def get_queryset(self):
         queryset = super().get_queryset()
