@@ -27,4 +27,8 @@ class PostListView(ListView):
     model = BlogPost
     context_object_name = "post_list"
     template_name = "post_list.html"
-    ordering = ["-created_at"]
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(published=True).order_by("-created_at")
