@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, ListView
 from datetime import datetime
-from .models import BlogPost
+from .models import BlogPost, Category
 
 
 class HomePageView(TemplateView):
@@ -32,3 +32,14 @@ class PostListView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(published=True).order_by("-created_at")
+
+
+class CategoryPostListView(ListView):
+    model = BlogPost
+    template_name = "category_posts.html"
+    context_object_name = "category_info"
+
+    def get_queryset(self):
+        slug = self.kwargs.get("slug")
+        category = get_object_or_404(Category, slug=slug)
+        return BlogPost.objects.filter(category=category)

@@ -1,0 +1,18 @@
+{% extends "post_list.html" %}
+{% block title %}Публикации в категории{% endblock title %}
+{% block content %}
+  <div class="posts">
+    {% for post in category_info %}
+      <div class="post">
+        <h1>Название: {{ post.title }}</h1>
+        <p>{{ post.content }}</p>
+        <p>Написал: {{ post.author }}</p>
+        <p>Категория: {{ post.category }}</p>
+        <p>Создан: {{ post.created_at }}</p>
+        <p>Обновлён: {{ post.updated_at }}</p>
+      </div>
+      {% empty %}
+    <h3>Публикации в этой категории отсутствуют.</h3>
+    {% endfor %}
+  </div>
+{% endblock content %}
